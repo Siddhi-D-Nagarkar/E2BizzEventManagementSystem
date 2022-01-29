@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<E2BizzEventManagementSystem.Model.Employee>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employee List</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            EmployeeName
+        </th>
+        <th>
+           City
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Phone
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+             @item.EmployeeName
+        </td>
+        <td>
+             @item.City
+        </td>
+        <td>
+            @item.Email
+        </td>
+        <td>
+             @item.Phone 
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Details", "Details", new { area = "AskEhsEmployees",id =item.EmployeeId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId }, new { @class = "btn btn-primary" })
+        </td>
+    </tr>
+}
+
+</table>
+<div class="container" style="text-align:center;">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 5 })
+</div>
