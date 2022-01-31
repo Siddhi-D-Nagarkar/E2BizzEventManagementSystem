@@ -6,19 +6,26 @@
 }
 
 <h2>Event List</h2>
+@using (Html.BeginForm("Index", "Events", new { area = "AshEhsEvents" }))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            EventCode
+            @Html.ActionLink("EventCode", "Index", new { area = "AshEhsEvents", sortOrder = ViewBag.EventCode })
         </th>
         <th>
-            EventName
+            @Html.ActionLink("EventName", "Index", new { area = "AshEhsEvents", sortOrder = ViewBag.EventName })
         </th>
         <th>
-           StartDate
+            @Html.ActionLink("StartDate", "Index", new { area = "AshEhsEvents", sortOrder = ViewBag.StartDate })
         </th>
         <th>
-            Fees
+            @Html.ActionLink("Fees", "Index", new { area = "AshEhsEvents", sortOrder = ViewBag.Fees })
         </th>
         <th></th>
     </tr>

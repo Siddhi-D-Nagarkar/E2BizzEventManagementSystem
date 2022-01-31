@@ -157,6 +157,8 @@
     <Compile Include="Areas\AshEhsEvents\Controllers\EventsController.cs" />
     <Compile Include="Areas\AskEhsEmployees\AskEhsEmployeesAreaRegistration.cs" />
     <Compile Include="Areas\AskEhsEmployees\Controllers\EmployeesController.cs" />
+    <Compile Include="Areas\Security\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -186,6 +188,8 @@
     <Content Include="Areas\AskEhsEmployees\Views\Employees\Delete.cshtml" />
     <Content Include="Areas\AskEhsEmployees\Views\Employees\Edit.cshtml" />
     <Content Include="Areas\AshEhsEvents\Views\Events\Edit.cshtml" />
+    <Content Include="Areas\Security\Views\web.config" />
+    <Content Include="Areas\Security\Views\Login\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -219,7 +223,10 @@
     <Folder Include="Areas\AskEhsEmployees\Data\" />
     <Folder Include="Areas\AskEhsEmployees\Views\Events\" />
     <Folder Include="Areas\AskEhsEmployees\Views\Shared\" />
+    <Folder Include="Areas\Security\Data\" />
+    <Folder Include="Areas\Security\Views\Shared\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\AskEhsSecurity\" />
     <Folder Include="Views\Events\" />
   </ItemGroup>
   <ItemGroup>

@@ -29,6 +29,8 @@ namespace E2BizzEventManagementSystem.Model
     
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     
         public virtual ObjectResult<GetAllEmployees_Result> GetAllEmployees()
         {
@@ -56,6 +58,37 @@ namespace E2BizzEventManagementSystem.Model
                 new ObjectParameter("p_EventId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetEventDetails_Result>("GetEventDetails", p_EventIdParameter);
+        }
+    
+        public virtual ObjectResult<AuthenticateUser_Result> AuthenticateUser(string p_Email, string p_Password)
+        {
+            var p_EmailParameter = p_Email != null ?
+                new ObjectParameter("p_Email", p_Email) :
+                new ObjectParameter("p_Email", typeof(string));
+    
+            var p_PasswordParameter = p_Password != null ?
+                new ObjectParameter("p_Password", p_Password) :
+                new ObjectParameter("p_Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AuthenticateUser_Result>("AuthenticateUser", p_EmailParameter, p_PasswordParameter);
+        }
+    
+        public virtual ObjectResult<GetAllRoles_Result> GetAllRoles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllRoles_Result>("GetAllRoles");
+        }
+    
+        public virtual ObjectResult<string> GetUserRole(string p_Email, string p_Password)
+        {
+            var p_EmailParameter = p_Email != null ?
+                new ObjectParameter("p_Email", p_Email) :
+                new ObjectParameter("p_Email", typeof(string));
+    
+            var p_PasswordParameter = p_Password != null ?
+                new ObjectParameter("p_Password", p_Password) :
+                new ObjectParameter("p_Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetUserRole", p_EmailParameter, p_PasswordParameter);
         }
     }
 }

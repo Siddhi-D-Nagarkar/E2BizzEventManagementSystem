@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticateUser_Result.cs">
+      <DependentUpon>E2BizzEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="E2BizzEDM.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -80,6 +83,9 @@
     <Compile Include="GetAllEvents_Result.cs">
       <DependentUpon>E2BizzEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetAllRoles_Result.cs">
+      <DependentUpon>E2BizzEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetEmployeeDetails_Result.cs">
       <DependentUpon>E2BizzEDM.tt</DependentUpon>
     </Compile>
@@ -87,6 +93,14 @@
       <DependentUpon>E2BizzEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>E2BizzEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>E2BizzEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ValidatedModels\Employee.cs" />
+    <Compile Include="ValidatedModels\Event.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -114,6 +128,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

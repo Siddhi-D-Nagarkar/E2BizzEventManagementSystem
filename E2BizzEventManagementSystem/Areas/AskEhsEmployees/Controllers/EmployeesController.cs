@@ -18,12 +18,48 @@ namespace E2BizzEventManagementSystem.Areas.AskEhsEmployees.Controllers
         {
             empCommonRepo = repository;
         }
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(string sortOrder,string searchString , int page = 1)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.Email = sortOrder == "email_asc" ? "email_desc" : "email_asc";
+            ViewBag.City = sortOrder == "city_asc" ? "city_desc" : "city_asc";
+            ViewBag.CurrentFilter = searchString;
+            var employees = empCommonRepo.GetAll();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                employees = employees.Where(s => s.EmployeeName.Contains(searchString)).ToList();
+                employees.Count();
+            }
+            if(employees.Count == 0)
+            {
+                employees = empCommonRepo.GetAll();
+            }
+            
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    employees =employees.OrderByDescending(s => s.EmployeeName).ToList();
+                    break;
+                case "email_asc":
+                    employees = employees.OrderBy(s => s.Email).ToList();
+                    break;
+                case "email_desc":
+                    employees = employees.OrderByDescending(s => s.Email).ToList();
+                    break;
+                case "city_desc":
+                    employees = employees.OrderByDescending(s => s.City).ToList();
+                    break;
+                case "city_asc":
+                    employees = employees.OrderBy(s => s.City).ToList();
+                    break;
+                default:
+                    employees = employees.OrderBy(s => s.EmployeeName).ToList();
+                    break;
+            }
             int pageSize = 3;
-            return View(empCommonRepo.GetAll().ToPagedList(page, pageSize));
+            return View(employees.ToPagedList(page, pageSize));
         }
-
         public ActionResult Details(int id)
         {
             return View(empCommonRepo.GetDetails(id))

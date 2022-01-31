@@ -7,16 +7,23 @@
 
 <h2>Employee List</h2>
 
+@using (Html.BeginForm("Index", "Employees", new { area = "AskEhsEmployees" }))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            EmployeeName
+            @Html.ActionLink("EmployeeName", "Index", new { sortOrder = ViewBag.NameSortParm, area = "AskEhsEmployees",  },new {@class="tab" })
         </th>
         <th>
-           City
+            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.City, area = "AskEhsEmployees" })
         </th>
         <th>
-            Email
+            @Html.ActionLink("Email","Index", new { sortOrder = ViewBag.Email, area = "AskEhsEmployees" })
         </th>
         <th>
             Phone
@@ -24,29 +31,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-             @item.EmployeeName
-        </td>
-        <td>
-             @item.City
-        </td>
-        <td>
-            @item.Email
-        </td>
-        <td>
-             @item.Phone 
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }, new { @class = "btn btn-primary" }) |
-            @Html.ActionLink("Details", "Details", new { area = "AskEhsEmployees",id =item.EmployeeId }, new { @class = "btn btn-primary" }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId }, new { @class = "btn btn-primary" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.EmployeeName
+            </td>
+            <td>
+                @item.City
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @item.Phone
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Details", "Details", new { area = "AskEhsEmployees", id = item.EmployeeId }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
 
 </table>
-<div class="container" style="text-align:center;">
+<div class="container" style="text-align:center;" >
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 5 })
 </div>

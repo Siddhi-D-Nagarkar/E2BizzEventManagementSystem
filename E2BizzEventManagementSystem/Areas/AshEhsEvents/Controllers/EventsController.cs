@@ -17,10 +17,53 @@ namespace E2BizzEventManagementSystem.Areas.AshEhsEvents.Controllers
         {
             eventCommonRepo = repository;
         }
-        public ActionResult Index(int page=1)
+        public ActionResult Index(string sortOrder,string searchString, int page=1)
         {
+            ViewBag.EventCode= String.IsNullOrEmpty(sortOrder) ? "eventCode_desc" : "";
+            ViewBag.EventName = sortOrder == "eventName_asc" ? "eventName_desc" : "eventName_asc";
+            ViewBag.StartDate = sortOrder == "startDate_asc" ? "startDate_desc" : "startDate_asc";
+            ViewBag.Fees = sortOrder == "fees_asc" ? "fees_desc" : "fees_asc";
+            ViewBag.CurrentFilter = searchString;
+            var events = eventCommonRepo.GetAll();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                events = events.Where(e => e.EventCode.Contains(searchString)).ToList();
+                events.Count();
+            }
+            if (events.Count == 0)
+            {
+                events = eventCommonRepo.GetAll();
+            }
+            switch (sortOrder)
+            {
+                case "eventCode_desc":
+                    events = events.OrderByDescending(s => s.EventCode).ToList();
+                    break;
+                case "eventName_desc":
+                    events = events.OrderByDescending(s => s.EventName).ToList();
+                    break;
+                case "eventName_asc":
+                    events = events.OrderBy(s => s.EventName).ToList();
+                    break;
+                case "startDate_asc":
+                    events = events.OrderBy(s => s.StartDate).ToList();
+                    break;
+                case "startDate_desc":
+                    events = events.OrderByDescending(s => s.StartDate).ToList();
+                    break;
+                case "fees_asc":
+                    events = events.OrderBy(s => s.Fees).ToList();
+                    break;
+                case "fees_desc":
+                    events = events.OrderByDescending(s => s.Fees).ToList();
+                    break;
+                default:
+                    events = events.OrderBy(s => s.EventCode).ToList();
+                    break;
+            }
+
             int pageSize = 3;
-            return View(eventCommonRepo.GetAll().ToPagedList(page,pageSize));
+            return View(events.ToPagedList(page,pageSize));
         }
 
         public ActionResult Details(int id)

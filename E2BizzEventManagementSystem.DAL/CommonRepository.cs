@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using E2BizzEventManagementSystem.Model;
+using System.Data.Entity.Core.Objects;
 
 namespace E2BizzEventManagementSystem.DAL
 {
@@ -47,8 +48,14 @@ namespace E2BizzEventManagementSystem.DAL
             return dbContext.GetAllEmployees().ToList();
         }
         public GetEmployeeDetails_Result GetEmployeeDetailsSP(int id)
-        {
+        {         
             return dbContext.GetEmployeeDetails(id).FirstOrDefault();
         }
+
+        public  AuthenticateUser_Result authenticateUser(User user)
+        {
+            return dbContext.AuthenticateUser(user.Email, user.Password).FirstOrDefault();
+        }
+
     }
 }

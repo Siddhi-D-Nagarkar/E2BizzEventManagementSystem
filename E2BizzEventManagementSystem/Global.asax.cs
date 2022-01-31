@@ -19,5 +19,23 @@ namespace E2BizzEventManagementSystem
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Session_Start()
+        {
+            Session["UserId"] = string.Empty;
+            Application.Lock();
+            Application["UserCount"] = Convert.ToInt32(Application["UserCount"]) + 1;
+            Application.UnLock();
+        }
+        protected void Session_End()
+        {
+            Session["UserId"] = null;
+            Application.Lock();
+            Application["UserCount"] = Convert.ToInt32(Application["UserCount"]) - 1;
+            Application.UnLock();
+        }
+        protected void Application_End()
+        {
+
+        }
     }
 }
